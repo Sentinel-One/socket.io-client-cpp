@@ -198,6 +198,11 @@ namespace sio
                                   "run loop end");
     }
 
+    void client_impl::set_proxy(const string& proxy_uri)
+    {
+        m_proxy_uri = proxy_uri;
+    }
+
     void client_impl::connect_impl(const string& uri, const string& queryString)
     {
         do{
@@ -230,6 +235,15 @@ namespace sio
 
             for( auto&& header: m_http_headers ) {
                 con->replace_header(header.first, header.second);
+            }
+
+            if (m_proxy_uri != "") {
+                con->set_proxy(m_proxy_uri, ec);
+                if (ec) {
+                    m_client.get_alog().write(websocketpp::log::alevel::app,
+                                              "Set Connection Proxy Error: " + ec.message());
+                    break;
+                }
             }
 
             m_client.connect(con);
