@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 PROJECT(sioclient)
 
 option(BUILD_SHARED_LIBS "Build the shared library" OFF)
-option(Boost_USE_STATIC_LIBS "Use Boost static version" ON)
+set (Boost_USE_STATIC_LIBS TRUE)
+set (Boost_USE_DEBUG_LIBS FALSE)
 
 set(MAJOR 1)
 set(MINOR 6)
-set(PATCH 0)
+set(PATCH 1)
 
 if(NOT CMAKE_BUILD_TYPE )
 MESSAGE(STATUS "not define build type, set to release" )
@@ -18,8 +19,6 @@ endif()
 
 set(BOOST_VER "1.55.0" CACHE STRING "boost version" )
 
-set(Boost_USE_MULTITHREADED ON) 
-set(Boost_USE_STATIC_RUNTIME OFF) 
 find_package(Boost ${BOOST_VER} REQUIRED COMPONENTS system date_time random) 
 
 aux_source_directory(${CMAKE_CURRENT_LIST_DIR}/src ALL_SRC)
