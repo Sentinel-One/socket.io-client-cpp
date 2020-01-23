@@ -203,6 +203,12 @@ namespace sio
         m_proxy_uri = proxy_uri;
     }
 
+    void client_impl::set_proxy_basic_auth(const std::string& username, const std::string& password)
+    {
+        m_proxy_user = username;
+        m_proxy_password = password;
+    }
+
     void client_impl::connect_impl(const string& uri, const string& queryString)
     {
         do{
@@ -243,6 +249,16 @@ namespace sio
                     m_client.get_alog().write(websocketpp::log::alevel::app,
                                               "Set Connection Proxy Error: " + ec.message());
                     break;
+                }
+
+                if (m_proxy_user != "") {
+                    con->set_proxy_basic_auth(m_proxy_user, m_proxy_password, ec);
+
+                    if (ec) {
+                        m_client.get_alog().write(websocketpp::log::alevel::app,
+                                                  "Set Connection Proxy Auth Error: " + ec.message());
+                        break;
+                    }
                 }
             }
 

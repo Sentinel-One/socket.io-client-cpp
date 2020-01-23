@@ -98,6 +98,8 @@ namespace sio
 
         void set_proxy(const string& proxy_uri);
 
+        void set_proxy_basic_auth(const std::string& username, const std::string& password);
+
         // Client Functions - such as send, etc.
         void connect(const std::string& uri, const std::map<std::string, std::string>& queryString,
                      const std::map<std::string, std::string>& httpExtraHeaders);
@@ -190,6 +192,8 @@ namespace sio
         std::string m_query_string;
         std::map<std::string, std::string> m_http_headers;
         std::string m_proxy_uri;
+        std::string m_proxy_user;
+        std::string m_proxy_password;
 
         unsigned int m_ping_interval;
         unsigned int m_ping_timeout;

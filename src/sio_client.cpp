@@ -73,6 +73,11 @@ namespace sio
         m_impl->set_proxy(proxy_uri);
     }
 
+    void client::set_proxy_basic_auth(const std::string& username, const std::string& password)
+    {
+        m_impl->set_proxy_basic_auth(username, password);
+    }
+
     void client::connect(const std::string& uri)
     {
         m_impl->connect(uri, {}, {});

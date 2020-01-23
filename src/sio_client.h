@@ -55,6 +55,8 @@ namespace sio
 
         void set_proxy(const std::string& proxy_uri);
 
+        void set_proxy_basic_auth(const std::string& username, const std::string& password);
+
         // Client Functions - such as send, etc.
         void connect(const std::string& uri);
 
